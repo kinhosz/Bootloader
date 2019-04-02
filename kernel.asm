@@ -1,4 +1,4 @@
-org 0x8600
+org 0x7e00
 jmp 0x0000:main
 
 data:
@@ -126,7 +126,7 @@ draw_background:
 	
 	ret
 	
-print_pontos: ;essa funcao so existe pq a pontuacao mudara constantemente
+print_pontos:
 
 	mov dh,3
 	mov dl,3
@@ -148,11 +148,11 @@ reset:
 		mov al,48
 		.if1: ;nao altera o caracter
 		stosb
-		jmp .for1
+		jmp .for1:
 	.fimfor1:
-	; zera o nivel
-	mov si,nivel
-	mov di,nivel
+	; zera o level
+	mov si,level
+	mov di,level
 	.for2:
 		lodsb
 		cmp al,' '
@@ -162,7 +162,7 @@ reset:
 		mov al,49
 		.if2: ;nao altera o caracter
 		stosb
-		jmp .for2
+		jmp .for2:
 	.fimfor2:
 	;zera o mapa
 	mov si,map
@@ -177,53 +177,12 @@ reset:
 	.fimfor3:
 	
 	ret
-
-print_bloco: 
-
-	;; incompleto
-	
-	
-	
-	
-
-	ret
-	
-print_mapa: ;printar o tabuleiro de jogo
-
-	mov si,map
-	mov cl,0
-	dec cl
-	.for:
-		inc cl
-		cmp cl,161
-		je .fimfor
-		lodsb
-		push si ; push, pois posso perder o valor
-		push cx
-		call print_bloco
-		pop cx
-		pop si ; recuperando, bb
-		jmp .for
-	.fimfor1:
-		
-	ret
-	
-print_data:
-
-	mov dh,9
-	mov dl,3
-	mov si,nivel
-	call prints ;print new nivel
-	call print_pontos
-	call print_mapa
-
-	ret
 	
 start_game:
 
 	
-	call reset ; reset data
-	call print_data
+	call reset ; reset game
+	call draw_background
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	ret
@@ -236,7 +195,7 @@ main:
 	
 	call _init
 	call draw_background
-	call start_game ;onde eu choro e minha mae nao ve
+	;call start_game ;onde eu choro e minha mae nao ve
 
 
 end:
