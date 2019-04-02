@@ -9,7 +9,7 @@ bilau db '            ',13
 level db ' LEVEL ', 13
 nivel db '   6   ',13
 ; mapa do jogo
-map db '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',13
+map db '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',13
 
 
 prints:
@@ -81,6 +81,7 @@ draw_background:
 	; para printar o campo de jogo no centro
 	; coluna 110 ~ 510
 	; linha 5 ~ 345
+	; pixels = 20*20
 	mov dx,5
 	.for3:
 		mov cx,110
@@ -180,10 +181,73 @@ reset:
 
 print_bloco: 
 
-	;; incompleto
+	; coluna 111 ~ 510
+	; linha 5 ~ 320
+	; pixels = 25*25 
+	; cl = position
+	; al = cor
 	
+	mov ch,0
+	sub al,48
+	push ax ; guarda a cor do pixel
+	push cx ; guarda cx
+	mov ax,cx
+	mov dl,13 ; qtd de linha
+	div dl;
+	mov al,ah; al = resto
+	mov ah,0
+	mov dx,320 ; >>>>>>>>consertou meu bug<<<<<
+	mov cl,25
+	mul cl ; ax = 25 * dif
+	sub dx,ax ; dx = pos inicial do for
+	pop cx ; recupera cx
+	push dx ; armazena a posicao inicial da linha
 	
+	mov ch,0 ; zera o high
+	mov ax,cx
+	mov cl,13
+	div cl ; al = quociente
+	mov ah,0
+	mov cx,0
+	mov cl,25 
+	mul cl ; ax = acrescimo
+	mov dx,111 ;>>>>>>>>consertou meu bug<<<<<
+	add dx,ax ; dx = posicao coluna inicial
+	pop cx ; cx = inicio linha
+	pop ax; al = cor, ah = lixo
+	push cx ; cx = linha -> errado
+	push dx ; dx = coluna -> errado
+	; swap
+	pop cx ; cx = coluna -> certo
+	pop dx ; dx = linha -> correto
 	
+	; temos:
+	; cx = coluna inicial
+	; dx = linha inicial
+	; al = cor do pixel
+	
+	mov bx,0 ; contador
+	push bx ; armazena na pilha, ->> bx1
+	add cx,25
+	dec dx
+	
+	.for1:
+		pop bx
+		cmp bx,25
+		je .fimfor1
+		sub cx,25
+		inc dx
+		inc bx ; incrementa
+		push bx ; armazena novamente na pilha
+		mov bx,0 ; reciclagem rsrs
+		.for2:
+			cmp bx,25
+			je .for1
+			call draw_pixel
+			inc bx
+			inc cx
+			jmp .for2
+	.fimfor1:
 	
 
 	ret
@@ -195,7 +259,7 @@ print_mapa: ;printar o tabuleiro de jogo
 	dec cl
 	.for:
 		inc cl
-		cmp cl,161
+		cmp cl,208
 		je .fimfor1
 		lodsb
 		push si ; push, pois posso perder o valor
@@ -224,6 +288,29 @@ start_game:
 	
 	call reset ; reset data
 	call print_data
+	
+	; teste dos quadradinhos
+	mov si,map
+	mov di,map
+	mov al,48
+	push ax
+	.for1:
+		lodsb
+		cmp al,13
+		je .fimfor1
+		pop ax
+		stosb
+		inc al
+		cmp al,64
+		je .if
+		push ax
+		jmp .for1
+		.if:
+		mov al,48
+		push ax
+		jmp .for1
+	.fimfor1:
+	call print_mapa
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	ret
