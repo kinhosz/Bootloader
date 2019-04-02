@@ -104,16 +104,7 @@ draw_background:
 	call prints
 	call print_pontos
 	
-	mov dh,2
-	.for5:   ; printa telinha escura da direita
-		inc dh
-		cmp dh,9
-		je .fimfor5
-		mov dl,66
-		mov si,bilau
-		call prints
-		jmp .for5
-	.fimfor5:
+	call clear_window
 	
 	mov dh,7
 	mov dl,3
@@ -282,37 +273,166 @@ print_data:
 	call print_mapa
 
 	ret
+rand:
+
+	mov ah,02h
+	int 1Ah
+	; ch = hour
+	; cl = minutes
+	; dh = seconds
+	; gerar numeros aleatorios
+	mov al,dh
+	mov ah,0
+	inc cl
+	mul cl
+	mov cl,19
+	div cl
+	mov al,ah
+	mov ah,0
+	; resposta em al
+	ret
+	
+clear_window:
+
+	mov dh,2
+	.for5:   ; printa telinha escura da direita
+		inc dh
+		cmp dh,9
+		je .fimfor5
+		mov dl,66
+		mov si,bilau
+		call prints
+		jmp .for5
+	.fimfor5:
+
+	ret
+	
+flip_window:
+
+	cmp al,0
+	je .ifA
+	cmp al,1
+	je .ifB
+	cmp al,2
+	je .ifC
+	cmp al,3
+	je .ifD
+	cmp al,4 ; condicionais
+	je .ifE
+	cmp al,5
+	je .ifF
+	cmp al,6
+	je .ifG
+	cmp al,7
+	je .ifH
+	cmp al,8
+	je .ifI
+	cmp al,9
+	je .ifJ
+	cmp al,10
+	je .ifK
+	cmp al,11
+	je .ifL
+	cmp al,12
+	je .ifM
+	cmp al,13
+	je .ifN
+	cmp al,14
+	je .ifO
+	cmp al,15
+	je .ifP
+	cmp al,16
+	je .ifQ
+	cmp al,17
+	je .ifR
+	cmp al,18
+	je .ifS
+	
+	;:::::::::::::::::::::::
+	.ifA:
+		call draw_A    ; para printar os 19 poligonos
+	jmp .fimfunction
+	.ifB:
+		call draw_B
+	jmp .fimfunction
+	.ifC:
+		call draw_C
+	jmp .fimfunction
+	.ifD:
+		call draw_D
+	jmp .fimfunction
+	.ifE:
+		call draw_E
+	jmp .fimfunction
+	.ifF:
+		call draw_F
+	jmp .fimfunction
+	.ifG:
+		call draw_G
+	jmp .fimfunction
+	.ifH:
+		call draw_H
+	jmp .fimfunction
+	.ifI:
+		call draw_I
+	jmp .fimfunction
+	.ifJ:
+		call draw_J
+	jmp .fimfunction
+	.ifK:
+		call draw_K
+	jmp .fimfunction
+	.ifL:
+		call draw_L
+	jmp .fimfunction
+	.ifM:
+		call draw_M
+	jmp .fimfunction
+	.ifN:
+		call draw_N
+	jmp .fimfunction
+	.ifO:
+		call draw_O
+	jmp .fimfunction
+	.ifP:
+		call draw_P
+	jmp .fimfunction
+	.ifQ:
+		call draw_Q
+	jmp .fimfunction
+	.ifR:
+		call draw_R
+	jmp .fimfunction
+	.ifS:
+		call draw_S
+	
+	.fimfunction:
+	ret
+	
+while: ; loop que rodara o jogo
+
+	call rand ; primeira peça do jogo
+	push ax
+	.run:
+		 pop bx
+		 call clear_window ; janelinha esquerda
+		 call rand ; peca aleatoria
+		 push ax
+		 push bx
+		 call flip_window ; atualiza
+		 ;pop bx
+		 ;call down ; desce nova peca
+		 
+	.gameover
+	ret
 	
 start_game:
 
-	
+	.continue:
 	call reset ; reset data
 	call print_data
-	
-	; teste dos quadradinhos
-	mov si,map
-	mov di,map
-	mov al,48
-	push ax
-	.for1:
-		lodsb
-		cmp al,13
-		je .fimfor1
-		pop ax
-		stosb
-		inc al
-		cmp al,64
-		je .if
-		push ax
-		jmp .for1
-		.if:
-		mov al,48
-		push ax
-		jmp .for1
-	.fimfor1:
-	call print_mapa
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+	call while
+	.n_continue:
 	ret
 	
 main:
