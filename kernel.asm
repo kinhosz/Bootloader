@@ -307,131 +307,131 @@ clear_window:
 
 	ret
 	
-flip_window:
+;flip_window:
 
-	cmp al,0
-	je .ifA
-	cmp al,1
-	je .ifB
-	cmp al,2
-	je .ifC
-	cmp al,3
-	je .ifD
-	cmp al,4 ; condicionais
-	je .ifE
-	cmp al,5
-	je .ifF
-	cmp al,6
-	je .ifG
-	cmp al,7
-	je .ifH
-	cmp al,8
-	je .ifI
-	cmp al,9
-	je .ifJ
-	cmp al,10
-	je .ifK
-	cmp al,11
-	je .ifL
-	cmp al,12
-	je .ifM
-	cmp al,13
-	je .ifN
-	cmp al,14
-	je .ifO
-	cmp al,15
-	je .ifP
-	cmp al,16
-	je .ifQ
-	cmp al,17
-	je .ifR
-	cmp al,18
-	je .ifS
+	;cmp al,0
+	;je .ifA
+	;cmp al,1
+	;je .ifB
+	;cmp al,2
+	;je .ifC
+	;cmp al,3
+	;je .ifD
+	;cmp al,4 ; condicionais
+	;je .ifE
+	;cmp al,5
+	;je .ifF
+	;cmp al,6
+	;je .ifG
+	;cmp al,7
+	;je .ifH
+	;cmp al,8
+	;je .ifI
+	;cmp al,9
+	;je .ifJ
+	;cmp al,10
+	;je .ifK
+	;cmp al,11
+	;je .ifL
+	;cmp al,12
+	;je .ifM
+	;cmp al,13
+	;je .ifN
+	;cmp al,14
+	;je .ifO
+	;cmp al,15
+	;je .ifP
+	;cmp al,16
+	;je .ifQ
+	;cmp al,17
+	;je .ifR
+	;cmp al,18
+	;je .ifS
 	
 	;:::::::::::::::::::::::
-	.ifA:
-		call draw_A    ; para printar os 19 poligonos
-	jmp .fimfunction
-	.ifB:
-		call draw_B
-	jmp .fimfunction
-	.ifC:
-		call draw_C
-	jmp .fimfunction
-	.ifD:
-		call draw_D
-	jmp .fimfunction
-	.ifE:
-		call draw_E
-	jmp .fimfunction
-	.ifF:
-		call draw_F
-	jmp .fimfunction
-	.ifG:
-		call draw_G
-	jmp .fimfunction
-	.ifH:
-		call draw_H
-	jmp .fimfunction
-	.ifI:
-		call draw_I
-	jmp .fimfunction
-	.ifJ:
-		call draw_J
-	jmp .fimfunction
-	.ifK:
-		call draw_K
-	jmp .fimfunction
-	.ifL:
-		call draw_L
-	jmp .fimfunction
-	.ifM:
-		call draw_M
-	jmp .fimfunction
-	.ifN:
-		call draw_N
-	jmp .fimfunction
-	.ifO:
-		call draw_O
-	jmp .fimfunction
-	.ifP:
-		call draw_P
-	jmp .fimfunction
-	.ifQ:
-		call draw_Q
-	jmp .fimfunction
-	.ifR:
-		call draw_R
-	jmp .fimfunction
-	.ifS:
-		call draw_S
+	;.ifA:
+		;call draw_A    ; para printar os 19 poligonos
+	;jmp .fimfunction
+	;.ifB:
+	;	call draw_B
+	;jmp .fimfunction
+	;.ifC:
+	;	call draw_C
+	;jmp .fimfunction
+	;.ifD:
+	;	call draw_D
+	;jmp .fimfunction
+	;.ifE:
+	;	call draw_E
+	;jmp .fimfunction
+	;.ifF:
+	;	call draw_F
+	;jmp .fimfunction
+	;.ifG:
+	;	call draw_G
+	;jmp .fimfunction
+	;.ifH:
+	;	call draw_H
+	;jmp .fimfunction
+	;.ifI:
+	;	call draw_I
+	;jmp .fimfunction
+	;.ifJ:
+	;	call draw_J
+	;jmp .fimfunction
+	;.ifK:
+	;	call draw_K
+	;jmp .fimfunction
+	;.ifL:
+	;	call draw_L
+	;jmp .fimfunction
+	;.ifM:
+	;	call draw_M
+	;jmp .fimfunction
+	;.ifN:
+	;	call draw_N
+	;jmp .fimfunction
+	;.ifO:
+	;	call draw_O
+	;jmp .fimfunction
+	;.ifP:
+	;	call draw_P
+	;jmp .fimfunction
+	;.ifQ:
+	;	call draw_Q
+	;jmp .fimfunction
+	;.ifR:
+	;	call draw_R
+	;jmp .fimfunction
+	;.ifS:
+	;	call draw_S
 	
-	.fimfunction:
-	ret
+	;.fimfunction:
+	;ret
 	
-while: ; loop que rodara o jogo
+;while: ; loop que rodara o jogo
 
-	call rand ; primeira peça do jogo
-	push ax
-	.run:
-		 pop bx
-		 call clear_window ; janelinha esquerda
-		 call rand ; peca aleatoria
-		 push ax
-		 push bx
-		 call flip_window ; atualiza
+	;call rand ; primeira peça do jogo
+	;push ax
+	;.run:
+	;	 pop bx
+	;	 call clear_window ; janelinha esquerda
+	;	 call rand ; peca aleatoria
+	;	 push ax
+	;	 push bx
+	;	 call flip_window ; atualiza
 		 ;pop bx
 		 ;call down ; desce nova peca
 		 
-	.gameover
-	ret
+	;.gameover
+	;ret
 	
 start_game:
 
 	.continue:
 	call reset ; reset data
 	call print_data
-	call while
+	;call while
 	.n_continue:
 	ret
 	
