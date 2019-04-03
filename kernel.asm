@@ -5,7 +5,7 @@ data:
 ;strings
 score db ' SCORE ',13
 pontos db ' 02040 ',13
-bilau db '            ',13
+bilau db '             ',13
 level db ' LEVEL ', 13
 nivel db '   6   ',13
 ; mapa do jogo
@@ -15,11 +15,11 @@ map db '000000000000000000000000000000000000000000000000000000000000000000000000
 ; BLOCO 1  = 1 SEM MOVIMENTO
 ; BLOCO 2~5 = 14 L
 ; BLOCO 6~7 = 15 MENOR MAIOR
-; BLOCO 8~9 = 5 MAIOR MENOR 
+; BLOCO 8~9 = 9 MAIOR MENOR 
 ; BLOCO 10~13 = 4 LINDO
 ; BLOCO 14 ~ 17 = 3 L INVERSO
-; BLOCO 18 ~ 19= 6 BARRA
-
+; BLOCO 18 ~ 19= 11 BARRA
+; algumas cores davam um erro de execucao no codigo (???)
 prints:
 
 	.loop:
@@ -186,7 +186,7 @@ print_bloco:
 	; cl = position
 	; al = cor
 	
-	mov ch,0
+	;mov ch,0
 	sub al,48
 	push ax ; guarda a cor do pixel
 	push cx ; guarda cx
@@ -202,7 +202,7 @@ print_bloco:
 	pop cx ; recupera cx
 	push dx ; armazena a posicao inicial da linha
 	
-	mov ch,0 ; zera o high
+	;mov ch,0 ; zera o high
 	mov ax,cx
 	mov cl,13
 	div cl ; al = quociente
@@ -297,7 +297,6 @@ rand:
 	div cl
 	mov al,ah
 	mov ah,0
-	; resposta em al
 	ret
 	
 clear_window:
@@ -305,7 +304,7 @@ clear_window:
 	mov dh,2
 	.for5:   ; printa telinha escura da direita
 		inc dh
-		cmp dh,9
+		cmp dh,11
 		je .fimfor5
 		mov dl,66
 		mov si,bilau
@@ -366,113 +365,614 @@ draw_B:
 
 	ret
 	
-flip_window:
+draw_C:
 
-	;cmp al,0
-	;je .ifA
-	;cmp al,1
-	;je .ifB
-	;cmp al,2
-	;je .ifC
-	;cmp al,3
-	;je .ifD
-	;cmp al,4 ; condicionais
-	;je .ifE
-	;cmp al,5
-	;je .ifF
-	;cmp al,6
-	;je .ifG
-	;cmp al,7
-	;je .ifH
-	;cmp al,8
-	;je .ifI
-	;cmp al,9
-	;je .ifJ
-	;cmp al,10
-	;je .ifK
-	;cmp al,11
-	;je .ifL
-	;cmp al,12
-	;je .ifM
-	;cmp al,13
-	;je .ifN
-	;cmp al,14
-	;je .ifO
-	;cmp al,15
-	;je .ifP
-	;cmp al,16
-	;je .ifQ
-	;cmp al,17
-	;je .ifR
-	;cmp al,18
-	;je .ifS
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	dec cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	add cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,13
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+	
+draw_D:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,13
+	dec cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	dec cx
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+
+draw_E:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	dec cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+	
+	ret
+	
+draw_F:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	dec cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	dec cx
+	push cx
+	push ax
+	call print_bloco
+	
+	ret
+	
+draw_G:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+	
+draw_H:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	dec cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+	
+draw_I:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,13
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,13
+	push cx
+	push ax
+	call print_bloco
+	
+	ret
+	
+draw_J:
+	
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,26
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+	
+draw_K:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,2
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,14
+	push cx
+	push ax
+	call print_bloco
+	
+	ret
+
+draw_L:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,26
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,12
+	push cx
+	push ax
+	call print_bloco
+	
+	ret
+	
+draw_M:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,2
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,12
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+
+draw_N:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,15
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+	
+draw_O:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	dec cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+
+draw_P:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	dec cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	dec cx
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+	
+draw_Q:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	dec cx
+	add cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,13
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+	
+draw_R:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,2
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	dec cx
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+
+draw_S:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,26
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,13
+	push cx
+	push ax
+	call print_bloco
+
+	ret
+	
+flip_window:
+	
+	cmp ax,0
+	je .ifA
+	cmp ax,1
+	je .ifB
+	cmp ax,2
+	je .ifC
+	cmp ax,3
+	je .ifD
+	cmp ax,4 ; condicionais
+	je .ifE
+	cmp ax,5
+	je .ifF
+	cmp ax,6
+	je .ifG
+	cmp ax,7
+	je .ifH
+	cmp ax,8
+	je .ifI
+	cmp ax,9
+	je .ifJ
+	cmp ax,10
+	je .ifK
+	cmp ax,11
+	je .ifL
+	cmp ax,12
+	je .ifM
+	cmp ax,13
+	je .ifN
+	cmp ax,14
+	je .ifO
+	cmp ax,15
+	je .ifP
+	cmp ax,16
+	je .ifQ
+	cmp ax,17
+	je .ifR
+	cmp ax,18
+	je .ifS
 	
 	;:::::::::::::::::::::::
-	;.ifA:
-	;	mov cl,103 ;seta posicao
-	;	mov al,1 ;seta cor
-	;	call draw_A    ; para printar os 19 poligonos
-		
-	;jmp .fimfunction
+	.ifA:
+		mov cx,103 ;seta posicao
+		add cx,128
+		mov al,1 ;seta cor
+		call draw_A    ; para printar os 19 poligonos
+	jmp .fimfunction
 	.ifB:
 		mov al,14 ; cor
-		mov cl,101
+		mov cx,101
+		add cx,128
 		call draw_B
-		
 	jmp .fimfunction
-	;.ifC:
-		;mov al,14 ; cor
-	;	call draw_C
-	;jmp .fimfunction
-	;.ifD:
-		;mov al,14 ; cor
-	;	call draw_D
-	;jmp .fimfunction
-	;.ifE:
-		;mov al,14 ; cor
-	;	call draw_E
-	;jmp .fimfunction
-	;.ifF:
-	;	call draw_F
-	;jmp .fimfunction
-	;.ifG:
-	;	call draw_G
-	;jmp .fimfunction
-	;.ifH:
-	;	call draw_H
-	;jmp .fimfunction
-	;.ifI:
-	;	call draw_I
-	;jmp .fimfunction
-	;.ifJ:
-	;	call draw_J
-	;jmp .fimfunction
-	;.ifK:
-	;	call draw_K
-	;jmp .fimfunction
-	;.ifL:
-	;	call draw_L
-	;jmp .fimfunction
-	;.ifM:
-	;	call draw_M
-	;jmp .fimfunction
-	;.ifN:
-	;	call draw_N
-	;jmp .fimfunction
-	;.ifO:
-	;	call draw_O
-	;jmp .fimfunction
-	;.ifP:
-	;	call draw_P
-	;jmp .fimfunction
-	;.ifQ:
-	;	call draw_Q
-	;jmp .fimfunction
-	;.ifR:
-	;	call draw_R
-	;jmp .fimfunction
-	;.ifS:
-	;	call draw_S
+	.ifC:
+		mov al,14 ; cor
+		mov cx,103
+		add cx,128
+		call draw_C
+	jmp .fimfunction
+	.ifD:
+		mov al,14 ; cor
+		mov cx,103
+		add cx,141
+		call draw_D
+	jmp .fimfunction
+	.ifE:
+		mov al,14 ; cor
+		mov cx,128
+		add cx,128
+		call draw_E
+	jmp .fimfunction
+	.ifF:
+		mov al,15
+		mov cx,115
+		add cx,128
+		call draw_F
+	jmp .fimfunction
+	.ifG:
+		mov al,15
+		mov cx,102
+		add cx,141
+		call draw_G
+	jmp .fimfunction
+	.ifH:
+		mov al,9
+		mov cx,115
+		add cx,128
+		call draw_H
+	jmp .fimfunction
+	.ifI:
+		mov al,9
+		mov cx,115
+		add cx,128
+		call draw_I
+	jmp .fimfunction
+	.ifJ:
+		mov al,4
+		mov cx,102
+		add cx,141
+		call draw_J
+	jmp .fimfunction
+	.ifK:
+		mov al,4
+		mov cx,102
+		add cx,128
+		call draw_K
+	jmp .fimfunction
+	.ifL:
+		mov al,4
+		mov cx,103
+		add cx,141
+		call draw_L
+	jmp .fimfunction
+	.ifM:
+		mov al,4
+		mov cx,102
+		add cx,141
+		call draw_M
+	jmp .fimfunction
+	.ifN:
+		mov al,3
+		mov cx,101
+		add cx,141
+		call draw_N
+	jmp .fimfunction
+	.ifO:
+		mov al,3
+		mov cx,116
+		add cx,140
+		call draw_O
+	jmp .fimfunction
+	.ifP:
+		mov al,3
+		mov cx,103
+		add cx,128
+		call draw_P
+	jmp .fimfunction
+	.ifQ:
+		mov al,3
+		mov cx,102
+		add cx,128
+		call draw_Q
+	jmp .fimfunction
+	.ifR:
+		mov al,11
+		mov cx,102
+		add cx,129
+		call draw_R
+	jmp .fimfunction
+	.ifS:
+		mov al,11
+		mov cx,103
+		add cx,140
+		call draw_S
 	
 	.fimfunction:
 	ret
@@ -482,12 +982,13 @@ while: ; loop que rodara o jogo
 	call rand ; primeira peça do jogo
 	push ax
 	.run:
-		 pop bx
+		 ;pop bx
 		 call clear_window ; janelinha esquerda
 		 call rand ; peca aleatoria
 		 push ax
-		 push bx
 		 call flip_window ; atualiza
+		 ;push bx
+		 ;mov ah,0
 		 ;pop bx
 		 ;call down ; desce nova peca
 		 
