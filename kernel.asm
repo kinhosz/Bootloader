@@ -11,6 +11,14 @@ nivel db '   6   ',13
 ; mapa do jogo
 map db '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',13
 
+;CORES
+; BLOCO 1  = 1 SEM MOVIMENTO
+; BLOCO 2~5 = 14 L
+; BLOCO 6~7 = 15 MENOR MAIOR
+; BLOCO 8~9 = 5 MAIOR MENOR 
+; BLOCO 10~13 = 4 LINDO
+; BLOCO 14 ~ 17 = 3 L INVERSO
+; BLOCO 18 ~ 19= 6 BARRA
 
 prints:
 
@@ -307,7 +315,58 @@ clear_window:
 
 	ret
 	
-;flip_window:
+	
+;funcoes que printam bloquinhos
+draw_A:
+
+	push ax
+	push cx
+	call print_bloco
+	pop cx
+	pop ax
+	dec cx
+	push ax
+	push cx
+	call print_bloco
+	pop cx
+	pop ax
+	add cx,13
+	push ax
+	push cx
+	call print_bloco
+	pop cx
+	pop ax
+	inc cx
+	call print_bloco
+
+	ret
+	
+draw_B:
+
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	add cx,13
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	sub cx,13
+	inc cx
+	push cx
+	push ax
+	call print_bloco
+	pop ax
+	pop cx
+	inc cx
+	call print_bloco
+
+	ret
+	
+flip_window:
 
 	;cmp al,0
 	;je .ifA
@@ -350,18 +409,27 @@ clear_window:
 	
 	;:::::::::::::::::::::::
 	;.ifA:
-		;call draw_A    ; para printar os 19 poligonos
+	;	mov cl,103 ;seta posicao
+	;	mov al,1 ;seta cor
+	;	call draw_A    ; para printar os 19 poligonos
+		
 	;jmp .fimfunction
-	;.ifB:
-	;	call draw_B
-	;jmp .fimfunction
+	.ifB:
+		mov al,14 ; cor
+		mov cl,101
+		call draw_B
+		
+	jmp .fimfunction
 	;.ifC:
+		;mov al,14 ; cor
 	;	call draw_C
 	;jmp .fimfunction
 	;.ifD:
+		;mov al,14 ; cor
 	;	call draw_D
 	;jmp .fimfunction
 	;.ifE:
+		;mov al,14 ; cor
 	;	call draw_E
 	;jmp .fimfunction
 	;.ifF:
@@ -406,32 +474,32 @@ clear_window:
 	;.ifS:
 	;	call draw_S
 	
-	;.fimfunction:
-	;ret
+	.fimfunction:
+	ret
 	
-;while: ; loop que rodara o jogo
+while: ; loop que rodara o jogo
 
-	;call rand ; primeira peça do jogo
-	;push ax
-	;.run:
-	;	 pop bx
-	;	 call clear_window ; janelinha esquerda
-	;	 call rand ; peca aleatoria
-	;	 push ax
-	;	 push bx
-	;	 call flip_window ; atualiza
+	call rand ; primeira peça do jogo
+	push ax
+	.run:
+		 pop bx
+		 call clear_window ; janelinha esquerda
+		 call rand ; peca aleatoria
+		 push ax
+		 push bx
+		 call flip_window ; atualiza
 		 ;pop bx
 		 ;call down ; desce nova peca
 		 
 	;.gameover
-	;ret
+	ret
 	
 start_game:
 
 	.continue:
 	call reset ; reset data
 	call print_data
-	;call while
+	call while
 	.n_continue:
 	ret
 	
